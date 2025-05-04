@@ -57,4 +57,13 @@ class CompanyController extends Controller
         }
         return response()->json($comps, 200);
     }
+    function GetCompanyById(Request $request){
+        $comp = Company::select('id','name', 'description', 'imagelocation','address')
+                ->where('id', $request->input('id'))
+                ->first();
+        $comp->imagelocation = Storage::temporaryUrl(
+                    $comp->imagelocation, now()->addDay(1)
+        );
+        return response()->json($comp, 200);
+    }
 }
