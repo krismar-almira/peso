@@ -10,6 +10,9 @@ import Preloader from "./components/preloader.jsx";
 import CompanyPage from "./pages/companyPage.jsx";
 import PositionPage from "./pages/positionsPage.jsx";
 import CompanyPosting from "./pages/companyPosting.jsx";
+import SkillPage from "./pages/skillPage.jsx";
+import JobFairSchedule from "./pages/jobFairSchedule.jsx";
+import EducationPage from "./pages/educationPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,10 @@ const router = createBrowserRouter([
           {
             path: '',
             Component: Dashboard,
+          },
+          {
+            path: 'schedule',
+            Component: JobFairSchedule,
           },
           {
             path: 'posting',
@@ -38,6 +45,14 @@ const router = createBrowserRouter([
           {
             path: 'config/position',
             Component: PositionPage,
+          },
+          {
+            path: 'config/skill',
+            Component: SkillPage,
+          },
+          {
+            path: 'config/education',
+            Component: EducationPage,
           },
           // {
           //   path: 'employees/:employeeId?/*',

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VacantPisition extends Model
+class EducationLevel extends Model
 {
-    //
 }

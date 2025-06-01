@@ -4,61 +4,48 @@ import { AddCircle } from '@mui/icons-material';
 import CompanyDialog from '../components/dialog/companyDialog';
 import { DataGrid } from '@mui/x-data-grid';
 import { GetAllCompany } from '../services/CompanyService';
-import { useNavigate } from 'react-router-dom';
+import PositionDialog from '../components/dialog/positionDialog';
+import { GetAllPositions } from '../services/PositionService';
+import { romanize } from '../helpers/helper';
+import SkillDialog from '../components/dialog/skillDialog';
+import { GetAllSkills } from '../services/SkillService';
 
 const columns = [
-    {headerName:'',field:'_',
-        renderCell:(row)=>{
-            console.log(row.row)
-            
-            return(<Box sx={{display:'flex', alignItems:'center', alignContent:'center', height:'100%'}}>
-                <Avatar src={row.row.imagelocation}/>
-            </Box> )
-        }
-    },
-    {headerName:'Company Name',field:'name',flex:1},
-    {headerName:'Description',field:'description',flex:2},
-
+    {headerName:'Name',field:'name',flex:1},
 ]
-const CompanyPage = () =>{
+const SkillPage = () =>{
     const [dialog, setDialog] = useState(false);
-    const [companies, setCompanies] =useState([]);
+    const [skills, setSkills] =useState([]);
     const [tableLoading, setTableLoading] = useState(false);
-    const navigate  = useNavigate();
     
     useEffect(()=>{
         if(!dialog)
-        loadComapanies();
+        loadSkills();
     },[dialog])
     
-    const loadComapanies = async () =>{
+    const loadSkills = async () =>{
         setTableLoading(true);
-        const _res = await GetAllCompany();
+        const _res = await GetAllSkills();
         setTableLoading(false);
         if(_res.success){
-            setCompanies(_res.data);
+            setSkills(_res.data);
         }
     }
     const handleOpenDialog = (crud) =>{
         setDialog(true);
-    }
-    const handleRowClick = (val) =>{
-        const data = val.row;
-        navigate('/posting?company='+data.id);
     }
     return(
         <Box sx={{position:'relative'}}>
             <IconButton sx={{position:'absolute', right:0, top:-50, zIndex:1000}} aria-label="" onClick={()=>handleOpenDialog('New')}>
               <AddCircle/>
             </IconButton>
-            {dialog&&<CompanyDialog setDialog={setDialog}/>}
+            {dialog&&<SkillDialog setDialog={setDialog}/>}
             <Box sx={{ flex: 1, position: 'relative', height:'calc(100vh - 250px)' }}>
                 <Box sx={{ inset: 0, position: 'absolute' }}>
                     <DataGrid
-                        onRowClick={handleRowClick}
                         loading={tableLoading}
                         columns={columns}
-                        rows={companies}
+                        rows={skills}
                     />
                 </Box>
             </Box>
@@ -66,4 +53,4 @@ const CompanyPage = () =>{
         </Box>
     );
 }
-export default CompanyPage;
+export default SkillPage;

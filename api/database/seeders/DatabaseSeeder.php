@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\EducationalAtainment;
+use App\Models\EducationLevel;
 use App\Models\TypeOfUser;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,6 +32,27 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password'=>bcrypt('admin')
         ]);
-        
+        EducationLevel::insert([
+            [
+                'id'=>1,
+                'name'=>'High School'
+            ],
+            [
+                'id'=>2,
+                'name'=>'Vocational'
+            ],
+            [
+                'id'=>3,
+                'name'=>'College'
+            ],
+            [
+                'id'=>4,
+                'name'=>'Masteral'
+            ],
+            [
+                'id'=>5,
+                'name'=>'Doctoral'
+            ]
+        ]);
     }
 }

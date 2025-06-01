@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\JobFairScheduleController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VacantPositionController;
 use App\Models\JobFairSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('/jobfair')->group(function () {
         route::post('', [JobFairScheduleController::class,'Save']);
         route::get('', [JobFairScheduleController::class,'GetAll']);
-
+        route::post('join', [JobFairScheduleController::class,'Join']);
+        route::post('accept', [JobFairScheduleController::class,'Accept']);
+        route::get('/participants', [JobFairScheduleController::class,'getAllParticpants']);
+    });
+    Route::prefix('/education')->group(function () {
+        route::get('level', [EducationController::class,'level']);
+        route::post('attainment', [EducationController::class,'addAttainement']);
+        route::get('attainment', [EducationController::class,'getAllAttainment']);
+    });
+    Route::prefix('/vacantposition')->group(function () {
+        route::post('', [VacantPositionController::class,'save']);
+        route::get('', [VacantPositionController::class,'getAll']);
+        
     });
 });

@@ -82,7 +82,7 @@ export default function Layout() {
       appTitle: CustomAppTitle,
       toolbarActions: ToolbarActions,
     }}>
-      <PageContainer>
+      <PageContainer  maxWidth={false} sx={{ px: 0, mx: 0 }}>
         <Outlet />
       </PageContainer>
     </DashboardLayout>
