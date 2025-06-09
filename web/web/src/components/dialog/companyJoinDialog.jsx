@@ -28,7 +28,7 @@ const CompanyJoinDialog = ({setDialog, data}) => {
     }
     return(
         <Dialog open={true} fullWidth maxWidth='sm'>
-            {vacantPositionDialog&&<VacantPositionDialog passdata={data} setDialog={setPositionVactionDialog}/>}
+            {vacantPositionDialog&&<VacantPositionDialog reloadList={reloadList} passdata={data} setDialog={setPositionVactionDialog}/>}
             <DialogTitle>
                 Info
             </DialogTitle>

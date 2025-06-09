@@ -6,7 +6,7 @@ import { romanize } from '../../helpers/helper';
 import { getAllEducationalAttainement } from '../../services/EducationService';
 import { AddVacantPosition } from '../../services/VacantPositionService';
 import { useSnackbar } from 'notistack';
-const VacantPositionDialog = ({setDialog, passdata}) =>{
+const VacantPositionDialog = ({setDialog, reloadList, passdata}) =>{
     const [currentData, setCurrentData] = useState({company_id:passdata.company_id, schedule_id:passdata.schedule_id,year_experience:1,position:{id:0, level:0},qty:10, skills:[], attainment:[]});
     const [data,setData] = useState({position:'',skills:[]});
     const [skills, setSkills] = useState([]);
@@ -69,6 +69,7 @@ const VacantPositionDialog = ({setDialog, passdata}) =>{
             return;
         }
         enqueueSnackbar('Successfully saved', {variant:'success'});
+        reloadList();
         setDialog(false);
         
     }

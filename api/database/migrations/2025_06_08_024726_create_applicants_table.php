@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('surname', 100)->nullable();
             $table->string('suffix', 20)->nullable();
             $table->string('sex', 100)->nullable();
+            $table->date('birthday')->nullable();
             $table->string('civil_status', 100)->nullable();
             $table->string('pa_house_no', 100)->nullable();
             $table->string('pa_brgy', 100)->nullable();
