@@ -23,6 +23,7 @@
     "dayjs": "^1.11.13",
     "image-to-base64": "^2.2.0",
     "notistack": "^3.0.2",
+    "pdfmake": "^0.2.20",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.0"

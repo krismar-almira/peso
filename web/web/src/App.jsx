@@ -3,7 +3,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import { Outlet } from 'react-router';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
-import { Apartment, Build, BuildOutlined, CastForEducation, LocalPostOffice, LockClock, Person, Power, PowerSettingsNew, SafetyCheck, Settings, SwitchAccessShortcut, VerifiedUser } from '@mui/icons-material';
+import { Apartment, Build, BuildOutlined, CastForEducation, LocalPostOffice, LockClock, Person, Power, PowerSettingsNew, SafetyCheck, Settings, SwitchAccessShortcut, VerifiedUser, WorkOutline } from '@mui/icons-material';
 
 const NAVIGATION = [
   {
@@ -15,15 +15,20 @@ const NAVIGATION = [
     icon: <DashboardIcon />,
   },
   {
+    title: 'Applicant',
+    segment:'applicant',
+    icon: <WorkOutline />,
+  },
+  {
     title: 'Job Fair Schedule',
     segment:'schedule',
     icon: <LockClock />,
   },
-  {
-    title: 'Posting',
-    segment:'posting',
-    icon: <SafetyCheck />,
-  },
+  // {
+  //   title: 'Posting',
+  //   segment:'posting',
+  //   icon: <SafetyCheck />,
+  // },
   {
     kind: 'divider',
   },

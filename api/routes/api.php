@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('/vacantposition')->group(function () {
         route::post('', [VacantPositionController::class,'save']);
         route::get('', [VacantPositionController::class,'getAll']);
+        route::delete('', [VacantPositionController::class,'delete']);
         
     });
 });

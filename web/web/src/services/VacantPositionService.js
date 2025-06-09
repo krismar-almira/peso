@@ -18,3 +18,13 @@ export const GetAllVacantPosition = async (data) =>{
         return { success: false, error: {status:ex.response.status,data:ex.response.data}};
     }
 }
+export const DeleteVacantPosition = async (data) =>{
+    try{
+        const response = await api.delete('/vacantposition',{params:data});
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}
+

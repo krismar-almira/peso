@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         EducationLevel::insert([
             [
                 'id'=>1,
-                'name'=>'High School'
+                'name'=>'Secondary'
             ],
             [
                 'id'=>2,
@@ -43,15 +43,19 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'id'=>3,
-                'name'=>'College'
+                'name'=>'Tertiary'
             ],
             [
                 'id'=>4,
-                'name'=>'Masteral'
+                'name'=>'Graduate Studies'
             ],
             [
                 'id'=>5,
                 'name'=>'Doctoral'
+            ],
+            [
+                'id'=>6,
+                'name'=>'Elementary'
             ]
         ]);
     }

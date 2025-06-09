@@ -34,10 +34,16 @@ class VacantPositionController extends Controller
         return response()->json($vacanPosition, 200);
     }
     function getAll(Request $request){
-        $vacants = VacantPosition::with(['position'])
+        $vacants = VacantPosition::with(['position','skills.skill'])
                                     ->where('company_id',$request->input('company_id'))
                                     ->where('job_fair_schedule_id',$request->input('schedule_id'))
                                     ->get();
         return response()->json($vacants, 200);
+    }
+    function delete(Request $request){
+        $id = $request->input('id');
+        $vacanPosition = VacantPosition::find($id);
+        $vacanPosition->delete();
+        return response()->json('success', 200);
     }
 }

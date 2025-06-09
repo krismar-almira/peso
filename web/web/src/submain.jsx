@@ -13,6 +13,7 @@ import CompanyPosting from "./pages/companyPosting.jsx";
 import SkillPage from "./pages/skillPage.jsx";
 import JobFairSchedule from "./pages/jobFairSchedule.jsx";
 import EducationPage from "./pages/educationPage.jsx";
+import ApplicantPage from "./pages/applicantPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
           {
             path: '',
             Component: Dashboard,
+          },
+          {
+            path: 'applicant',
+            Component: ApplicantPage,
           },
           {
             path: 'schedule',

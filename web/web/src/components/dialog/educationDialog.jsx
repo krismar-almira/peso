@@ -53,7 +53,7 @@ const EducationDialog = ({setDialog}) => {
                     <Select
                        label='Educational Level'
                        value={currentData.education_level_id}
-                       onChange={(val)=>setCurrentData(prev=>({...prev, education_level_id:val}))}
+                       onChange={(val)=>setCurrentData(prev=>({...prev, education_level_id:val.target.value}))}
                     >
                         {educationLevels.map(x=>
                             <MenuItem value={x.id}>{x.name}</MenuItem>

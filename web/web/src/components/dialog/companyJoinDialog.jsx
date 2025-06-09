@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, List, Stack, TextField, styled, CardHeader } from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, List, Stack, TextField, styled, CardHeader, Typography } from '@mui/material';
 import React,{useEffect, useState} from 'react';
 import { useSnackbar } from 'notistack';
 import { isEmptyString, romanize } from '../../helpers/helper';
@@ -8,15 +8,16 @@ import { JobFairParticipants } from '../../services/JobFairScheduleService';
 import VacantPositionDialog from './vacantPositionDialog';
 import { Add } from '@mui/icons-material';
 import { GetAllVacantPosition } from '../../services/VacantPositionService';
+import PositionItem from '../comp/positionItems';
 
 const CompanyJoinDialog = ({setDialog, data}) => {
     const [vacantPositionDialog, setPositionVactionDialog] = useState(false);
     const [postedVacantPosition, setPosetedVacantPositions] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(()=>{
-        init();
+        reloadList();
     },[])
-    const init = async () =>{
+    const reloadList = async () =>{
         setLoading(true);
         const res = await GetAllVacantPosition(data);
         setLoading(false);
@@ -32,26 +33,17 @@ const CompanyJoinDialog = ({setDialog, data}) => {
                 Info
             </DialogTitle>
             <DialogContent>
-                <IconButton sx={{position:'absolute', top:10, right:20}} onClick={()=>setPositionVactionDialog(true)}>
-                    <Add/>
-                </IconButton>
+                <Button startIcon={<Add/>} sx={{position:'absolute', top:10, right:20}} onClick={()=>setPositionVactionDialog(true)}>
+                    Add Vacant Position
+                </Button>
                 {loading?<CircularProgress/>:
                 <Box sx={{display:'flex', gap:1, flexDirection:'column'}}>
                     {
                         postedVacantPosition.map((x)=>(
-                                            <Card key={x.id}>
-                                                <CardHeader
-                                                title={`${x.position.name} ${romanize(x.position_level)}`}
-                                                subheader={`Number of Vacant: ${x.qty}`}
-                                                />
-                                                <CardContent>
-
-                                                </CardContent>
-                                            </Card>
+                                            <PositionItem key={x.id} reloadList={reloadList} x={x}/>
                                         ))
                     }
                 </Box>
-                  
                 }
             </DialogContent>
             <DialogActions>
