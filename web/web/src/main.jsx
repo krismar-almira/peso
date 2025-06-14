@@ -20,8 +20,6 @@ createRoot(document.getElementById('root')).render(
         <Submain/>
       </AuthProvider>
       </LocalizationProvider>
-     
-
     </SnackbarProvider>
   </StrictMode>,
 )

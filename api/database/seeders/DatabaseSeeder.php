@@ -19,10 +19,13 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         TypeOfUser::insert([
             [
-                'name'=>'admin'
+                'name'=>'Admin'
             ] ,
             [
                 'name'=>'Company User'
+            ],
+            [
+                'name'=>'Applicant'
             ]
         ]);
         User::create([

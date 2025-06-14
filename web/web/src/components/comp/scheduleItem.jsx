@@ -4,6 +4,7 @@ import { JoinJobFair } from "../../services/JobFairScheduleService";
 import { useState } from "react";
 import ListParticipantsDialog from "../dialog/listOfParticipantsDialog";
 import CompanyJoinDialog from "../dialog/companyJoinDialog";
+import ParticipantsDialog from "../dialog/participantsDialog";
 const options = {
     year: 'numeric',
     month: 'long',
@@ -15,6 +16,7 @@ const ScheduletItem = ({data, reload}) =>{
     const [dialog, setDialog] =useState(false);
     const [viewDialog, setViewDialog] = useState(false);
     const [viewDataSelected, setViewDataSelected] = useState();
+    const [participantDialog, setParticipantDialog] = useState(false);
     const join = async () =>{
         setLoading(true);
         const res = await JoinJobFair({ job_fair_schedule_id:data.id});
@@ -26,11 +28,15 @@ const ScheduletItem = ({data, reload}) =>{
         setViewDialog(true);
         setViewDataSelected({company_id:user.company_id,schedule_id:data.id});
     }
+    const handleClickParticipant=()=>{
+        setParticipantDialog(true);
+    }
     return (
         <Card >
             <CardContent sx={{display:'flex'}} >
                 {viewDialog&&<CompanyJoinDialog data={viewDataSelected} setDialog={setViewDialog}/>}
                 {dialog&&<ListParticipantsDialog id={data.id} setDialog={setDialog}/>}
+                {participantDialog&&<ParticipantsDialog setDialog={setParticipantDialog}/>}
                 <CardMedia
                 sx={{ height: 140,flex:1 }}
                 image={data?.imagelocation}
@@ -49,7 +55,11 @@ const ScheduletItem = ({data, reload}) =>{
                 </Box>
                 <Divider flexItem orientation="vertical"/>
                 <Box sx={{width:200, p:2, gap:1, display:'flex',flexDirection:'column'}}>
-                    {/* <Typography variant="body1" color="initial">{data.joined?'Already Joined':'Not yet joined'}</Typography> */}
+                    <Button onClick={handleClickParticipant} sx={{borderRadius:5}} fullWidth variant="outlined" color="primary">
+                        Participants
+                    </Button>
+                </Box>
+                {/* <Box sx={{width:200, p:2, gap:1, display:'flex',flexDirection:'column'}}>
                     {
                     data.joined?
                         <Button fullWidth variant="contained" disabled={!data.accept} onClick={viewCompany}>{data.accept?'view':'waiting to accept'}</Button>
@@ -61,7 +71,7 @@ const ScheduletItem = ({data, reload}) =>{
                     <Button onClick={()=>setDialog(true)} sx={{borderRadius:5}} fullWidth variant="outlined" color="primary">
                       Participants
                     </Button>
-                </Box>
+                </Box> */}
             </CardContent>
         </Card>
     )

@@ -6,4 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class EducationLevel extends Model
 {
+    protected $fillable = ['name', 'education_level_id'];
 }

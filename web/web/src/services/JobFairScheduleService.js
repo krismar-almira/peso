@@ -47,3 +47,14 @@ export const AcceptJobFair = async (data) =>{
         return { success: false, error: {status:ex.response.status,data:ex.response.data}};
     }
 }
+
+export const JobFairJoinEmployers= async ()=>{
+    try{
+        const response = await api.post('/jobfair/accept', data);
+        return { success: true, data: response.data};
+        
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}

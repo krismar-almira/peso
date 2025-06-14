@@ -1,3 +1,11 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
 export const isEmptyString = (str) => {
     return !str || str.trim() === '';
   };
@@ -18,6 +26,9 @@ export function romanize (num) {
   while (i--)
       roman = (key[+digits.pop() + (i * 10)] || "") + roman;
   return Array(+digits.join("") + 1).join("M") + roman;
+}
+export function localizeTime (date){
+  return dayjs.tz(date, "Asia/Manila").format('ddd, DD MMM YYYY');;
 }
 // export const convertImageToBase64 = async (imagePath) => {
 

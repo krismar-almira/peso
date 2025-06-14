@@ -17,6 +17,10 @@ Route::post('/login', [AuthController::class,'login']);
 //     return $request->user();
 // })->middleware('');
 
+Route::get('/education/attainment', [EducationController::class,'getAllAttainment']);
+Route::get('/position', [PositionController::class,'All']);
+Route::get('/skill', [SkillController::class,'GetAll']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('/user')->group(function () {
         route::get('', [UserController::class,'getAllUser']);
@@ -28,17 +32,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('/company')->group(function () {
         route::post('', [CompanyController::class,'Save']);
         route::get('', [CompanyController::class,'All']);
-        
         route::post('/getbyid', [CompanyController::class,'GetCompanyById']);
-        
+        route::put('/employersreq/approve', [CompanyController::class,'ApproveEmployeerRequest']);
+        route::put('/employersreq/delete', [CompanyController::class,'DeleteEmployeerRequest']);
+
+        route::get('/employersreq', [CompanyController::class,'GetAllEmployeersRequest']);
     });
     Route::prefix('/position')->group(function () {
         route::post('', [PositionController::class,'Save']);
-        route::get('', [PositionController::class,'All']);
+        //route::get('', [PositionController::class,'All']);
     });
     Route::prefix('/skill')->group(function () {
         route::post('', [SkillController::class,'Save']);
-        route::get('', [SkillController::class,'GetAll']);
+        //route::get('', [SkillController::class,'GetAll']);
     });
     Route::prefix('/jobfair')->group(function () {
         route::post('', [JobFairScheduleController::class,'Save']);
@@ -50,12 +56,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('/education')->group(function () {
         route::get('level', [EducationController::class,'level']);
         route::post('attainment', [EducationController::class,'addAttainement']);
-        route::get('attainment', [EducationController::class,'getAllAttainment']);
+        //route::get('attainment', [EducationController::class,'getAllAttainment']);
     });
     Route::prefix('/vacantposition')->group(function () {
         route::post('', [VacantPositionController::class,'save']);
         route::get('', [VacantPositionController::class,'getAll']);
         route::delete('', [VacantPositionController::class,'delete']);
-        
     });
+    
 });

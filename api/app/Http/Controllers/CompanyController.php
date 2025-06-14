@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Employeer;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -65,5 +66,34 @@ class CompanyController extends Controller
                     $comp->imagelocation, now()->addDay(1)
         );
         return response()->json($comp, 200);
+    }
+    function GetAllEmployeersRequest(){
+        // $employers = Employeer::orderBy('id', 'desc')->get();
+        
+        // return response()->json($employers, 200);
+        $employers = Employeer::orderBy('id', 'desc')->get()->map(function ($employer) {
+            $decoded = $employer->vacant_positions;
+
+            // Check if it's still a string
+            if (is_string($decoded)) {
+                $decoded = json_decode($decoded, true);
+            }
+
+            $employer->vacant_positions = $decoded;
+            return $employer;
+        });
+        return response()->json($employers, 200);
+
+    }
+    function ApproveEmployeerRequest(Request $request){
+        $employer = Employeer::find($request->input('id'));
+        $employer->confirmed = true;
+        $employer->save();
+        return response()->json('success', 200);
+    }
+    function DeleteEmployeerRequest(Request $request){
+        $employer = Employeer::find($request->input('id'));
+        $employer->delete();
+        return response()->json('success', 200);
     }
 }

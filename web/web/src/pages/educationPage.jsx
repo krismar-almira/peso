@@ -17,7 +17,6 @@ const columns = [
     {headerName:'Level',field:'_',flex:1, valueGetter:(val,row)=>{
         return row.edu_level?.name;
     }},
-
 ]
 const EducationPage = () =>{
     const [dialog, setDialog] = useState(false);
