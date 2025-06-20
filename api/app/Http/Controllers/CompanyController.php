@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Employee;
 use App\Models\Employeer;
+use App\Models\EmployeerJoinJobFairSchedule;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -68,9 +70,6 @@ class CompanyController extends Controller
         return response()->json($comp, 200);
     }
     function GetAllEmployeersRequest(){
-        // $employers = Employeer::orderBy('id', 'desc')->get();
-        
-        // return response()->json($employers, 200);
         $employers = Employeer::orderBy('id', 'desc')->get()->map(function ($employer) {
             $decoded = $employer->vacant_positions;
 
@@ -96,4 +95,59 @@ class CompanyController extends Controller
         $employer->delete();
         return response()->json('success', 200);
     }
+    function AddCompanyToJobFairSchedule(Request $request){
+
+        $companies = $request->input('comapany_id');
+        $schedule_id = $request->input('schedule_id');
+
+        foreach ($companies as $company_id) {
+            $employejoin = EmployeerJoinJobFairSchedule::updateOrCreate(
+                ['job_fair_schedule_id'=>$schedule_id,'employeer_id'=>$company_id],
+                ['job_fair_schedule_id'=>$schedule_id,'employeer_id'=>$company_id]
+            );
+        }
+        return response()->json('success', 200);
+        // $employer = Employeer::find($request->input('id'));
+        // $employer->delete();
+        // return response()->json('success', 200);
+    }
+    function GetEmployJoinJobFairSchedule(Request $request){
+        $employers = EmployeerJoinJobFairSchedule::with(['employeer'])
+            ->where('job_fair_schedule_id', $request->input('job_fair_schedule_id'))
+            ->get()
+            ->map(function ($employer) {
+                $decoded = $employer->employeer->vacant_positions;
+
+                if (is_string($decoded)) {
+                    $decoded = json_decode($decoded, true);
+                }
+
+                $employer->employeer->vacant_positions = $decoded;
+                return $employer;
+        });
+
+        return response()->json($employers, 200);
+    }
+    function DeleteEmployJoinJobFairSchedule(Request $request){
+        $join = EmployeerJoinJobFairSchedule::find($request->input('id'));
+        $join->delete();
+        return response()->json($request, 200);
+    }
+    function GetAllNsrp2Request(Request $request){
+        $nsrp2 = Employee::with(['JS'])->get();
+        return response()->json($nsrp2, 200);
+    }
+    
+    function NSRP2ReqApprove(Request $request){
+        $employer = Employee::find($request->input('id'));
+        $employer->confirmed = true;
+        $employer->save();
+        return response()->json('success', 200);
+    }
+    function NSRP2ReqDelete(Request $request){
+        $employer = Employee::find($request->input('id'));
+        $employer->delete();
+        return response()->json('success', 200);
+    }
+
 }

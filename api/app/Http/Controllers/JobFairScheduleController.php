@@ -53,7 +53,8 @@ class JobFairScheduleController extends Controller
             'venue'=>$request->input('venue'),
             'event_date'=>Carbon::parse($request->input('event_date')),
             'end_event_date'=>Carbon::parse($request->input('end_event_date')),
-            'imagelocation'=>$fileName
+            'imagelocation'=>$fileName,
+            'random'=>Str::upper(Str::random(24))
 
         ]);
         return response()->json($jobFairSchedule, 200);

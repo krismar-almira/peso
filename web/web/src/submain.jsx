@@ -15,6 +15,7 @@ import JobFairSchedule from "./pages/jobFairSchedule.jsx";
 import EducationPage from "./pages/educationPage.jsx";
 import ApplicantPage from "./pages/applicantPage.jsx";
 import Nsrp1Page from "./pages/nsrp1Page.jsx";
+import Nsrp2Page from "./pages/nsrp2Page.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
           {
             path: 'nsrp1',
             Component: Nsrp1Page,
+          },
+          {
+            path: 'nsrp2',
+            Component: Nsrp2Page,
           },
           {
             path: 'schedule',

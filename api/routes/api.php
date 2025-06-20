@@ -35,9 +35,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
         route::post('/getbyid', [CompanyController::class,'GetCompanyById']);
         route::put('/employersreq/approve', [CompanyController::class,'ApproveEmployeerRequest']);
         route::put('/employersreq/delete', [CompanyController::class,'DeleteEmployeerRequest']);
-
+        route::post('/addcompanyschedule', [CompanyController::class,'AddCompanyToJobFairSchedule']);
         route::get('/employersreq', [CompanyController::class,'GetAllEmployeersRequest']);
+        route::get('/geemployerjoinjobfairschedule', [CompanyController::class,'GetEmployJoinJobFairSchedule']);
+
+        route::delete('/employerjoinjobfairschedule', [CompanyController::class,'DeleteEmployJoinJobFairSchedule']);
+
+
+        route::get('/nsrp2req', [CompanyController::class,'GetAllNsrp2Request']);
+        route::put('/nsrp2req/approve', [CompanyController::class,'NSRP2ReqApprove']);
+        route::put('/nsrp2req/delete', [CompanyController::class,'NSRP2ReqDelete']);
+
+
+        
     });
+    
     Route::prefix('/position')->group(function () {
         route::post('', [PositionController::class,'Save']);
         //route::get('', [PositionController::class,'All']);

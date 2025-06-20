@@ -5,6 +5,7 @@ import { useState } from "react";
 import ListParticipantsDialog from "../dialog/listOfParticipantsDialog";
 import CompanyJoinDialog from "../dialog/companyJoinDialog";
 import ParticipantsDialog from "../dialog/participantsDialog";
+import { useSnackbar } from "notistack";
 const options = {
     year: 'numeric',
     month: 'long',
@@ -17,6 +18,7 @@ const ScheduletItem = ({data, reload}) =>{
     const [viewDialog, setViewDialog] = useState(false);
     const [viewDataSelected, setViewDataSelected] = useState();
     const [participantDialog, setParticipantDialog] = useState(false);
+    const {enqueueSnackbar} = useSnackbar();
     const join = async () =>{
         setLoading(true);
         const res = await JoinJobFair({ job_fair_schedule_id:data.id});
@@ -31,12 +33,21 @@ const ScheduletItem = ({data, reload}) =>{
     const handleClickParticipant=()=>{
         setParticipantDialog(true);
     }
+    const handleCopy = async (textToCopy) => {
+        const url = import.meta.env.VITE_API_URL.replace('api/','')+'nsrp2?id='+textToCopy;
+        try {
+            await navigator.clipboard.writeText(url);
+            enqueueSnackbar('Copied to clipboard!',{variant:'success'});
+        } catch (err) {
+            enqueueSnackbar('Failed to copy!',{variant:'error'});
+        }
+    };
     return (
         <Card >
             <CardContent sx={{display:'flex'}} >
                 {viewDialog&&<CompanyJoinDialog data={viewDataSelected} setDialog={setViewDialog}/>}
                 {dialog&&<ListParticipantsDialog id={data.id} setDialog={setDialog}/>}
-                {participantDialog&&<ParticipantsDialog setDialog={setParticipantDialog}/>}
+                {participantDialog&&<ParticipantsDialog id={data.id} setDialog={setParticipantDialog}/>}
                 <CardMedia
                 sx={{ height: 140,flex:1 }}
                 image={data?.imagelocation}
@@ -57,6 +68,9 @@ const ScheduletItem = ({data, reload}) =>{
                 <Box sx={{width:200, p:2, gap:1, display:'flex',flexDirection:'column'}}>
                     <Button onClick={handleClickParticipant} sx={{borderRadius:5}} fullWidth variant="outlined" color="primary">
                         Participants
+                    </Button>
+                    <Button onClick={()=>handleCopy(data.random)} sx={{borderRadius:5}} fullWidth variant="outlined" color="primary">
+                        Copy Link To Clipboard
                     </Button>
                 </Box>
                 {/* <Box sx={{width:200, p:2, gap:1, display:'flex',flexDirection:'column'}}>

@@ -1,8 +1,8 @@
 import React,{useEffect, useState} from 'react';
 import {Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, Divider, IconButton, Stack} from "@mui/material";
-import { AddCircle, Widgets } from '@mui/icons-material';
+import { AddCircle, Schedule, Widgets } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
-import { EmployeerRequestApprove, EmployeerRequestDelete, GetAllCompany,  GetAllEmployeersRequest} from '../../services/CompanyService';
+import { AddEmployeerToJobFairSchedule, EmployeerRequestApprove, EmployeerRequestDelete, GetAllCompany,  GetAllEmployeersRequest} from '../../services/CompanyService';
 import { localizeTime, romanize } from '../../helpers/helper';
 import { useSnackbar } from 'notistack';
 import Nsrp1Dialog from '../../components/dialog/nsrp1Dialog';
@@ -16,6 +16,8 @@ const Nsrp1ListDialog = ({setDialog, event_id}) =>{
     const [seletedNsrp, setSelectedNsrp] = useState();
     const [selectedIds, setSelectedIds] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
+    const [loading, setLoading] = useState(false);
+
 
     const handleSelectionChange = (selection) => {
         const selectedIds = selection && selection.ids
@@ -155,8 +157,15 @@ const Nsrp1ListDialog = ({setDialog, event_id}) =>{
     const handleOpenDialog = (crud) =>{
         setDialog(true);
     }
-    const handleAdd = () =>{
-        
+    const handleAdd = async () =>{
+        setLoading(true);
+        const res = await AddEmployeerToJobFairSchedule({schedule_id:event_id,comapany_id:selectedIds});
+        setLoading(false);
+        if(!res.success){
+            enqueueSnackbar('encounter error while adding to job fair schedule', {variant:'error'});
+            return;
+        }
+        enqueueSnackbar('Successfully added', {variant:'success'});
     }
     return(
         <Dialog open={true} fullWidth maxWidth='lg'>
@@ -183,7 +192,7 @@ const Nsrp1ListDialog = ({setDialog, event_id}) =>{
                 <Button onClick={()=>setDialog(false)}>
                     Close
                 </Button>
-                <Button onClick={handleAdd}>
+                <Button loading={loading} onClick={handleAdd}>
                     Add
                 </Button>
             </DialogActions>

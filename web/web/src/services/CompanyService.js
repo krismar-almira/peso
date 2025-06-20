@@ -55,3 +55,58 @@ export const EmployeerRequestDelete = async (data) =>{
         return { success: false, error: {status:ex.response.status,data:ex.response.data}};
     }
 }
+export const AddEmployeerToJobFairSchedule = async (data) =>{
+    try{
+        const response = await api.post('/company/addcompanyschedule',data);
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}
+export const GetEmployeerToJobFairSchedule = async (data) =>{
+    try{
+        const response = await api.get('/company/geemployerjoinjobfairschedule',{params:data});
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}
+export const DeleteEmployerJobFairSchedule = async (data) =>{
+    try{
+        const response = await api.delete('/company/employerjoinjobfairschedule',{params:data});
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}
+
+export const GetAllNsrp2Request = async (data) =>{
+    try{
+        const response = await api.get('/company/nsrp2req');
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}
+export const NSRP2RequestApprove = async (data) =>{
+    try{
+        const response = await api.put('/company/nsrp2req/approve',data);
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}
+export const NSRP2RequestDelete = async (data) =>{
+    try{
+        const response = await api.put('/company/nsrp2req/delete',data);
+        return { success: true, data: response.data};
+    }
+    catch(ex){
+        return { success: false, error: {status:ex.response.status,data:ex.response.data}};
+    }
+}

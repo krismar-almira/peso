@@ -20,6 +20,11 @@ const NAVIGATION = [
     icon: <WorkOutline />,
   },
   {
+    title: 'NSRP2 Request',
+    segment:'nsrp2',
+    icon: <RequestQuote/>,
+  },
+  {
     title: 'NSRP1 Request',
     segment:'nsrp1',
     icon: <RequestQuote/>,

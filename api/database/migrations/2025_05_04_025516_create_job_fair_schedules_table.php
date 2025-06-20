@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('venue', 2000)->nullable();
             $table->date('event_date')->nullable();
             $table->date('end_event_date')->nullable();
+            $table->string('random', 24)->unique(); 
             $table->timestamps();
         });
     }
