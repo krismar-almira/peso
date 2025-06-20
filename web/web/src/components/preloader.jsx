@@ -14,7 +14,7 @@ const Preloader = () => {
     const {user, isAuth, setIsAuth,setUser} = useAuthProvider();
     const [data, setData] = useState({email:'', password:''});
     const {enqueueSnackbar} = useSnackbar();
-    const [typeUser, setTypeUser] = useState('select');
+    const [typeUser, setTypeUser] = useState();
     const [applicantData, setApplicantData] = useState('');
     
     useState(()=>{
