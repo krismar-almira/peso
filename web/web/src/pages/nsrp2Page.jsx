@@ -23,22 +23,14 @@ const Nsrp2Page = () =>{
     const [nsrpDialog,setNsrp2Dialog] = useState(false);
     const [seletedNsrp, setSelectedNsrp] = useState();
     const columns = [
-        {headerName:'Full Name',field:'full_name',flex:1},
+        {headerName:'Full Name',field:'full_name',width:200},
         {
             headerName:'Job Fair Schedule',
             field:'_',
-            width:150,
+            flex:1,
             valueGetter:(_, row)=>{
                 return row?.j_s?.theme
             }
-            // renderCell: (params) => {
-            //     return <Chip
-            //         label={params.row?.vacant_positions?.length}
-            //         color={params.value === 'Active' ? 'success' : 'default'}
-            //         variant="outlined"
-            //         size="small"
-            //     />
-            // },
         },
         
         {

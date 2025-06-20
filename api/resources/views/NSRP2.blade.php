@@ -654,14 +654,17 @@
         }
 
         function save(data) {
+            console.log(data);
             $('.loading').removeClass('d-none');
             $.ajax({
                 url: '/nsrp2/save',
                 type: 'POST',
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "json",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: data,
                 success: function(response) {
                     console.log('Success:', response);
                     toastr.success('Successfully saved!');

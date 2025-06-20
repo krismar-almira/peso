@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\JobFairScheduleController;
+use App\Http\Controllers\MatchingController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
@@ -49,7 +50,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         
     });
-    
+    Route::prefix('/match')->group(function () {
+        route::get('',[MatchingController::class,'match']);
+    });
     Route::prefix('/position')->group(function () {
         route::post('', [PositionController::class,'Save']);
         //route::get('', [PositionController::class,'All']);

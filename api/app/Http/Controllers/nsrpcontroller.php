@@ -74,7 +74,7 @@ class nsrpcontroller extends Controller
             'school_graduated' => $data['school_graduated'],
             'year_graduated' => $data['year_graduated'],
             'work_experience' => json_encode($data['work_experience']),
-            'core_skills' => implode(', ', $data['core_skills']),
+            'core_skills' => json_encode($data['core_skills']),
             'preferred_occupation' => $data['preferred_occupation'],
             'preferred_work_location' => $data['preferred_work_location'],
             'willing_to_work_abroad' => $data['willing_to_work_abroad'] === 'Yes',

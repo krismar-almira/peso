@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('school_graduated', 150)->nullable();
             $table->string('year_graduated', 150)->nullable();
             $table->json('work_experience')->nullable();
-            $table->string('core_skills', 150)->nullable();
+            $table->json('core_skills')->nullable();
             $table->string('preferred_occupation', 150)->nullable();
             $table->string('preferred_work_location', 150)->nullable();
             $table->boolean('willing_to_work_abroad')->nullable();

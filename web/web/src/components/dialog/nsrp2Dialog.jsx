@@ -38,6 +38,8 @@ const Nsrp2Dialog = ({ setDialog, data }) => {
     // Parse work_experience and language_spoken from JSON strings
     const parsedWorkExperience = work_experience ? JSON.parse(work_experience) : [];
     const parsedLanguageSpoken = language_spoken ? JSON.parse(language_spoken) : [];
+    const coreSkills = core_skills ? JSON.parse(core_skills):[];
+
 
     return (
         <Dialog open={true} fullWidth maxWidth='sm'>
@@ -102,7 +104,10 @@ const Nsrp2Dialog = ({ setDialog, data }) => {
                 <Box mb={3}>
                     <Typography variant="h6">Skills and Languages</Typography>
                     <Typography sx={{ mt: 1 }}><strong>Core Skills:</strong></Typography>
-                    <Chip label={core_skills} size="small" sx={{ mr: 1, mt: 0.5 }} />
+                    {coreSkills.map((lang, i) => (
+                        <Chip key={i} label={lang} size="small" sx={{ mr: 1, mt: 0.5 }} />
+                    ))}
+
                     <Typography sx={{ mt: 1 }}><strong>Languages Spoken:</strong></Typography>
                     {parsedLanguageSpoken.map((lang, i) => (
                         <Chip key={i} label={lang} size="small" sx={{ mr: 1, mt: 0.5 }} />
