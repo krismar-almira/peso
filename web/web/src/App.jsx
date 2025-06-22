@@ -20,7 +20,7 @@ const NAVIGATION = [
   //   icon: <WorkOutline />,
   // },
   {
-    title: 'NSRP2 Request',
+    title: 'NSRP Applicant',
     segment:'nsrp2',
     icon: <RequestQuote/>,
   },
