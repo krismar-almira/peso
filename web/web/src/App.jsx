@@ -14,18 +14,18 @@ const NAVIGATION = [
     title: 'Dashboard',
     icon: <DashboardIcon />,
   },
-  {
-    title: 'Applicant',
-    segment:'applicant',
-    icon: <WorkOutline />,
-  },
+  // {
+  //   title: 'Applicant',
+  //   segment:'applicant',
+  //   icon: <WorkOutline />,
+  // },
   {
     title: 'NSRP2 Request',
     segment:'nsrp2',
     icon: <RequestQuote/>,
   },
   {
-    title: 'NSRP1 Request',
+    title: 'NSRP - Employer',
     segment:'nsrp1',
     icon: <RequestQuote/>,
   },
@@ -47,11 +47,11 @@ const NAVIGATION = [
     title:'Configuration',
     icon:<Settings/>,
     children: [
-      {
-        segment: 'company',
-        title: 'Company',
-        icon: <Apartment />,
-      },
+      // {
+      //   segment: 'company',
+      //   title: 'Company',
+      //   icon: <Apartment />,
+      // },
       {
         segment: 'user',
         title: 'User',

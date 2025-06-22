@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import {Avatar, Box, Button, Card, CardContent, Chip, Dialog, DialogActions, DialogContent, Divider, IconButton, Stack, Typography} from "@mui/material";
+import {Avatar, Box, Button, Card, CardContent, CardHeader, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Stack, Typography} from "@mui/material";
 import { AddCircle, Schedule, Widgets } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import { AddEmployeerToJobFairSchedule, EmployeerRequestApprove, EmployeerRequestDelete, GetAllCompany,  GetAllEmployeersRequest} from '../../services/CompanyService';
@@ -7,6 +7,7 @@ import { localizeTime, romanize } from '../../helpers/helper';
 import { useSnackbar } from 'notistack';
 import Nsrp1Dialog from '../../components/dialog/nsrp1Dialog';
 import { GetAllMatchBy } from '../../services/MatchService';
+import ParticipantMatchDialog from './participantMatchDialog';
 
 
 const MatchingDialog = ({setDialog, event_id}) =>{
@@ -19,6 +20,8 @@ const MatchingDialog = ({setDialog, event_id}) =>{
     const [selectedIds, setSelectedIds] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [participantMatchDialog, setParticipantMatchDialog] = useState(false);
+    const [selectedApplicant, setSelectedApplicant] = useState();
 
     const columns = [
         {headerName:'Applicants',field:'full_name',flex:1},
@@ -44,7 +47,7 @@ const MatchingDialog = ({setDialog, event_id}) =>{
             width: 100,
             renderCell: (params) => (
                 <Box height='100%'  display="flex" flex='row' alignItems="center" alignContent='center' gap={1}>
-                    <Button
+                    {/* <Button
                         variant="contained"
                         color="default"
                         size="small"
@@ -53,42 +56,19 @@ const MatchingDialog = ({setDialog, event_id}) =>{
                             setNsrp1Dialog(true);
                         }}
                         >
-                            View
+                            view
+                    </Button> */}
+                    <Button
+                        variant="contained"
+                        color="default"
+                        size="small"
+                        onClick={()=>{
+                            setParticipantMatchDialog(true);
+                            setSelectedApplicant(params.row.id)
+                        }}
+                        >
+                            Match
                     </Button>
-                    {/* <Divider orientation='vertical' flexItem />
-                    {
-                        params.row.confirmed?
-                     
-                        <Button
-                            variant="contained"
-                            color="success"
-                            size="small"
-                            disabled
-                            >
-                                Approved
-                        </Button>
-                        :
-                        <>
-                            <Button
-                                variant="contained"
-                                color="success"
-                                size="small"
-                                    onClick={() => handleApprove(params.row)}
-                                >
-                                    approve
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="error"
-                                size="small"
-                                    onClick={() => handleDelete(params.row)}
-                                >
-                                    Delete
-                            </Button>
-                        </>
-                        
-                    }
-                    */}
                 </Box>
             ),
     },
@@ -122,6 +102,8 @@ const MatchingDialog = ({setDialog, event_id}) =>{
     }
     return(
         <Dialog open={true} fullWidth maxWidth='lg'>
+            <DialogTitle>
+            </DialogTitle>
             <DialogContent>
                 <Box sx={{position:'relative'}}>
                     <Card>
@@ -131,8 +113,8 @@ const MatchingDialog = ({setDialog, event_id}) =>{
                             </Box>
                         </CardContent>
                     </Card>
-                    
                     {nsrpDialog&&<Nsrp1Dialog data={seletedNsrp} setDialog={setNsrp1Dialog}/>}
+                    {participantMatchDialog&&<ParticipantMatchDialog data={matchData} selected={selectedApplicant} setDialog={setParticipantMatchDialog}/>}
                     <Box sx={{ flex: 1, position: 'relative', height:'calc(100vh - 250px)' }}>
                         <Box sx={{ inset: 0, position: 'absolute' }}>
                             <DataGrid

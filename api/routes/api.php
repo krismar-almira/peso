@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\JobFairScheduleController;
 use App\Http\Controllers\MatchingController;
@@ -23,6 +24,9 @@ Route::get('/position', [PositionController::class,'All']);
 Route::get('/skill', [SkillController::class,'GetAll']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('/dashboard')->group(function () {
+        route::get('', [DasboardController::class,'dashboard']);
+    });
     Route::prefix('/user')->group(function () {
         route::get('', [UserController::class,'getAllUser']);
         route::get('/logout', [UserController::class,'logOut']);
