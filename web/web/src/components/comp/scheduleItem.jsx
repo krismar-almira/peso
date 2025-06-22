@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, Divider, Typography, Button, dialogActionsClasses } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Divider, Typography, Button, dialogActionsClasses, Link } from "@mui/material";
 import { useAuthProvider } from "../../context/authContext";
 import { JoinJobFair } from "../../services/JobFairScheduleService";
 import { useState } from "react";
@@ -69,6 +69,9 @@ const ScheduletItem = ({data, reload}) =>{
                     <Typography variant="subtitle1" color="initial">
                         Date:  {data?.event_date==data?.end_event_date?`${new Date(data?.event_date).toLocaleDateString(undefined, options)}`:`${new Date(data?.event_date).toLocaleDateString(undefined, options)} - ${new Date(data?.end_event_date).toLocaleDateString(undefined, options)}`} 
                     </Typography>
+                    <Link>
+                    {import.meta.env.VITE_API_URL.replace('api/','')+'nsrp2?id='+data.random}
+                    </Link>
                 </Box>
                 <Divider flexItem orientation="vertical"/>
                 <Box sx={{width:200, p:2, gap:1, display:'flex',flexDirection:'column'}}>
@@ -78,6 +81,7 @@ const ScheduletItem = ({data, reload}) =>{
                     <Button onClick={handleClickMatching} sx={{borderRadius:5}} fullWidth variant="outlined" color="primary">
                         Matching
                     </Button>
+                    
                     <Button onClick={()=>handleCopy(data.random)} sx={{borderRadius:5}} fullWidth variant="outlined" color="primary">
                         Copy Link
                     </Button>
