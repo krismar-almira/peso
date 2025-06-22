@@ -132,9 +132,9 @@ const Nsrp2Page = () =>{
     }
     return(
         <Box sx={{position:'relative'}}>
-            <IconButton sx={{position:'absolute', right:0, top:-50, zIndex:1000}} aria-label="" onClick={()=>handleOpenDialog('New')}>
+            {/* <IconButton sx={{position:'absolute', right:0, top:-50, zIndex:1000}} aria-label="" onClick={()=>handleOpenDialog('New')}>
               <AddCircle/>
-            </IconButton>
+            </IconButton> */}
             {nsrpDialog&&<Nsrp2Dialog data={seletedNsrp} setDialog={setNsrp2Dialog}/>}
             {dialog&&<SkillDialog setDialog={setDialog}/>}
             <Box sx={{ flex: 1, position: 'relative', height:'calc(100vh - 250px)' }}>
