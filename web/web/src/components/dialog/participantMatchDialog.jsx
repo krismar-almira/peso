@@ -18,6 +18,7 @@ import {
   ListItemButton,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { generateEndorsementPdf } from '../../pdf/endorsementpdf';
 
 const ParticipantMatchDialog = ({ data, setDialog, selected }) => {
   const [selectedApplicant, setSelectedApplicant] = useState(null);
@@ -66,7 +67,13 @@ const ParticipantMatchDialog = ({ data, setDialog, selected }) => {
     { field: 'skills_score', headerName: 'Skills Score', width: 120, valueGetter: (value ) => `${value}%` },
     { field: 'overall_score', headerName: 'Overall Score', width: 120, valueGetter: (value) => `${value}%` },
   ];
-
+  const handleDownloadEndosrmentLetter = (_data) => {
+    const employer_data = data.employeers.find(x=>x.id===_data.employer_id);
+    const applicant = data.applicants.find(x=>x.id===selectedApplicant.id);
+    console.log({employer_data,match:_data,selectedApplicant,applicant});
+    
+    generateEndorsementPdf({employer_data,match:_data,applicant});
+  }
   return (
     <Dialog open={true} fullWidth maxWidth="lg" onClose={() => setDialog(false)}>
       <DialogTitle>
@@ -246,7 +253,7 @@ const ParticipantMatchDialog = ({ data, setDialog, selected }) => {
                               />
                             </ListItem>
                             <ListItem>
-                              <Button>
+                              <Button onClick={()=>handleDownloadEndosrmentLetter(match)}>
                                 Download Endorsement Letter
                               </Button>
                             </ListItem>

@@ -1,5 +1,6 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts"; // No need to assign
+import { localizeTime } from "../helpers/helper";
 // import JsBarcode from "jsbarcode";
 
 // const formatBarcodeText = (text) => {
@@ -16,34 +17,22 @@ export const generateEndorsementPdf = (data) => {
         margin: [0, 0, 0, 20]
         },
         {
-        text: '\n\n_____________________\n_____________________\n_____________________\n_____________________\n_____________________',
+        text: `\n\n${(new Date).toDateString()}\n${data.employer_data.contact_person}\n${data.employer_data.establishment}\n${data.employer_data.business_address}`,
         margin: [0, 0, 0, 10]
         },
         {
-        text: 'Dear ______________:',
+        text: 'Dear Mr./Mrs. ' + data.employer_data.contact_person,
         margin: [0, 0, 0, 10]
         },
         {
-        text: 'This pertains to the vacancy in your office for the position of ',
+        text: `This pertains to the vacancy in your office for the position of ${data?.match?.position_title}. We are sending the attached resume for an interview and possible employment.`,
         style: 'body',
         margin: [0, 0, 0, 0]
         },
-        {
-        text: 'Customer Service Representative (CSR). ',
-        bold: true
-        },
-        {
-        text: 'We are sending the ',
-        style: 'body'
-        },
-        {
-        text: 'attached resume ',
-        bold: true
-        },
-        {
-        text: 'for an interview and possible employment.\n\nWe wish to inform you that the applicants have attended and completed the Contact Center Services NC II course as conducted by the Philippines Call Center Institute (PCCI) in partnership of the Office of the Provincial Public Employment Service Manager Province of Antique.\n\nThank you.',
-        style: 'body'
-        },
+        // {
+        // text: 'for an interview and possible employment.\n\nWe wish to inform you that the applicants have attended and completed the Contact Center Services NC II course as conducted by the Philippines Call Center Institute (PCCI) in partnership of the Office of the Provincial Public Employment Service Manager Province of Antique.\n\nThank you.',
+        // style: 'body'
+        // },
         {
         text: '\n\nVery truly yours,\n\nMYRA E. PE\nPGDH- Provincial PESO Manager\nProvince of Antique',
         style: 'signature',
@@ -67,9 +56,9 @@ export const generateEndorsementPdf = (data) => {
         table: {
             widths: ['auto', '*'],
             body: [
-            ['Name of Applicant:', '_______________________________________________'],
-            ['Position Applied for:', '_______________________________________________'],
-            ['Name of Company:', '_______________________________________________'],
+            ['Name of Applicant:', data.applicant.full_name],
+            ['Position Applied for:', data?.match?.position_title],
+            ['Name of Company:', data?.match?.employer_name],
             ['Was he/she accepted?', 'Yes ________________   No ________________'],
             ['Is the Position still vacant?', 'Yes ________________   No ________________'],
             ['Accomplished by:', '_______________________________________________'],
