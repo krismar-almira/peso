@@ -88,8 +88,9 @@ class MatchingController extends Controller
                                 }
                             }
                         }
-                        $maxDuration = $position['work_experience_duration']; // 10 years
-                        $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
+                        $maxDuration = $position['work_experience_duration'];
+
+                        $workExperienceScore=0;
                         try {
                             if ($maxDuration == 0) {
                                 throw new Exception('Division by zero');
@@ -97,7 +98,7 @@ class MatchingController extends Controller
                             $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
 
                         } catch (\Throwable $th) {
-                            $workExperienceScore = 'error output';
+                            $workExperienceScore = 0;
 
                         }
                         // Skills Score (20%): Percentage of required skills matched
