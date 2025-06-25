@@ -8,6 +8,7 @@ use App\Models\Employeer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\EmployeerJoinJobFairSchedule;
+use Exception;
 use PhpParser\Node\Stmt\TryCatch;
 
 class MatchingController extends Controller
@@ -90,6 +91,9 @@ class MatchingController extends Controller
                         $maxDuration = $position['work_experience_duration']; // 10 years
                         $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
                         try {
+                            if ($maxDuration == 0) {
+                                throw new Exception('Division by zero');
+                            }
                             $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
 
                         } catch (\Throwable $th) {
