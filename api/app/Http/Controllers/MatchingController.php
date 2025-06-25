@@ -8,6 +8,7 @@ use App\Models\Employeer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\EmployeerJoinJobFairSchedule;
+use PhpParser\Node\Stmt\TryCatch;
 
 class MatchingController extends Controller
 {
@@ -88,6 +89,13 @@ class MatchingController extends Controller
                         }
                         $maxDuration = $position['work_experience_duration']; // 10 years
                         $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
+                        try {
+                            $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
+
+                        } catch (\Throwable $th) {
+                            $workExperienceScore = 'error output';
+
+                        }
                         // Skills Score (20%): Percentage of required skills matched
                         $applicantSkills = is_array($data->core_skills) ? $data->core_skills : [];
                         $matchedSkills = array_intersect($applicantSkills, $position['skills_required']);
