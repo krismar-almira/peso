@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Applicant;
 use App\Models\Employee;
+use App\Models\Applicant;
 use App\Models\Employeer;
-use App\Models\EmployeerJoinJobFairSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Models\EmployeerJoinJobFairSchedule;
 
 class MatchingController extends Controller
 {
@@ -68,16 +69,25 @@ class MatchingController extends Controller
 
                         // Work Experience Score (50%): Based on matching job titles and duration
                         $totalDuration = 0;
-                        $targetJobTitle = strtolower($position['positionTitle']);
+                        // $targetJobTitle = strtolower($position['positionTitle']);
+                        
+                        // foreach ($data->work_experience as $exp) {
+                        //     // Assume match for "programmer" and placeholder title for demonstration
+                        //     if (strtolower($exp['job_title']) === 'programmer' && strpos($targetJobTitle, 'voluptatibus') !== false) {
+                        //         $totalDuration += (int) $exp['duration'];
+                        //     }
+                        // }
+                        $work_experiences = $position['work_experience'];
+                        $targetJobTitles =$position['work_experience'];
                         foreach ($data->work_experience as $exp) {
-                            // Assume match for "programmer" and placeholder title for demonstration
-                            if (strtolower($exp['job_title']) === 'programmer' && strpos($targetJobTitle, 'voluptatibus') !== false) {
-                                $totalDuration += (int) $exp['duration'];
+                            foreach ($targetJobTitles as $targetJobTitle) {
+                                if(strtolower($exp['job_title'])===strtolower($targetJobTitle)){
+                                    $totalDuration += (int) $exp['duration'];
+                                }
                             }
                         }
-                        $maxDuration = 120; // 10 years
+                        $maxDuration = $position['work_experience_duration']; // 10 years
                         $workExperienceScore = min(($totalDuration / $maxDuration) * 100, 100);
-
                         // Skills Score (20%): Percentage of required skills matched
                         $applicantSkills = is_array($data->core_skills) ? $data->core_skills : [];
                         $matchedSkills = array_intersect($applicantSkills, $position['skills_required']);
@@ -108,7 +118,6 @@ class MatchingController extends Controller
 
                 return $data;
             });
-
         return response()->json([
             'applicants' => $applicants->map(function ($applicant) {
                 return [

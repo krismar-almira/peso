@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack';
 import Nsrp1Dialog from '../../components/dialog/nsrp1Dialog';
 import { GetAllMatchBy } from '../../services/MatchService';
 import ParticipantMatchDialog from './participantMatchDialog';
+import { generateEndorsementPdf } from '../../pdf/endorsementpdf';
 
 
 const MatchingDialog = ({setDialog, event_id}) =>{

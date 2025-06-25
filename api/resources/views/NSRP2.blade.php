@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSRP-2 Form</title>
+    <title>NSRP-Applicant Form</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Choices.js CSS -->
@@ -72,7 +72,7 @@
     </div>
 
     <div class="container my-5">
-        <h2>National Skills Registration Program (NSRP-2) Form</h2>
+        <h2>National Skills Registration Program Applicant Form</h2>
         <form id="nsrp2Form" novalidate>
             @csrf
 
@@ -208,13 +208,13 @@
                     <div class="invalid-feedback">Please enter the school you graduated from.</div>
                 </div>
             </div>
-            <div class="row mb-3">
+            {{-- <div class="row mb-3">
                 <label for="course" class="col-sm-3 col-form-label">Course:</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" id="course" name="course" value="Velit voluptas nost" required>
                     <div class="invalid-feedback">Please enter your course of study.</div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row mb-3">
                 <label for="yearGraduated" class="col-sm-3 col-form-label">Year Graduated:</label>
                 <div class="col-sm-9">
@@ -625,7 +625,7 @@
                 },
                 education: formData.get('education'),
                 school_graduated: formData.get('school_graduated'),
-                course: formData.get('course'),
+                // course: formData.get('course'),
                 year_graduated: formData.get('year_graduated'),
                 work_experience: [],
                 core_skills: formData.getAll('core_skills[]'),

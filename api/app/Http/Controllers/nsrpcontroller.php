@@ -18,12 +18,12 @@ class nsrpcontroller extends Controller
         $position = Position::all();
         return view('NSRP2', ['skills' => $skills,'educations'=>$education, 'positions'=>$position]);
     }
-    function nsrp22(){
-        $skills = Skill::all();
-        $education = EducationalAtainment::all();
-        $position = Position::all();
-        return view('NSRP22', ['skills' => $skills,'educations'=>$education, 'positions'=>$position]);
-    }
+    // function nsrp22(){
+    //     $skills = Skill::all();
+    //     $education = EducationalAtainment::all();
+    //     $position = Position::all();
+    //     return view('NSRP22', ['skills' => $skills,'educations'=>$education, 'positions'=>$position]);
+    // }
     function nsrp1(){
         $skills = Skill::all();
         $education = EducationalAtainment::all();

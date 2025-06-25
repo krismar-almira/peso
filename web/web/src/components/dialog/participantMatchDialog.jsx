@@ -15,6 +15,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemButton,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -149,6 +150,7 @@ const ParticipantMatchDialog = ({ data, setDialog, selected }) => {
                                     <Typography variant="body2">
                                       Required: {position?.education.join(', ')}
                                     </Typography>
+          
                                     <Typography variant="body2">
                                       {selectedApplicantData?.education &&
                                       position?.education.includes(selectedApplicantData.education)
@@ -165,21 +167,30 @@ const ParticipantMatchDialog = ({ data, setDialog, selected }) => {
                                 secondary={
                                   <>
                                     <Typography variant="body2">
+                                      {/* {JSON.stringify(matchingWorkExperience)} */}
                                       Applicant Work Experience:{' '}
-                                      {matchingWorkExperience.length > 0
+                                      {/* {matchingWorkExperience.length > 0
                                         ? matchingWorkExperience
+                                            .map((exp) => `${exp.job_title} (${exp.duration} months)`)
+                                            .join(', ')
+                                        : 'None'} */}
+                                        {selectedApplicantData.work_experience.length > 0
+                                        ? selectedApplicantData.work_experience
                                             .map((exp) => `${exp.job_title} (${exp.duration} months)`)
                                             .join(', ')
                                         : 'None'}
                                     </Typography>
                                     <Typography variant="body2">
-                                      Required Position: {match.position_title}
+                                      Required Work Experience: {position.work_experience.join(',')}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                      Required Work Experience Duration: {position.work_experience_duration} month(s)
                                     </Typography>
                                     <Typography variant="body2">
                                       Total Duration: {totalDuration} months
                                     </Typography>
                                     <Typography variant="body2">
-                                      Score: {match.work_experience_score}% (Normalized to 120 months)
+                                      Score: {match.work_experience_score}%
                                     </Typography>
                                   </>
                                 }
@@ -233,6 +244,11 @@ const ParticipantMatchDialog = ({ data, setDialog, selected }) => {
                                 primary="Overall Score"
                                 secondary={`(0.3 × ${match.course_score}) + (0.5 × ${match.work_experience_score}) + (0.2 × ${match.skills_score}) = ${match.overall_score}%`}
                               />
+                            </ListItem>
+                            <ListItem>
+                              <Button>
+                                Download Endorsement Letter
+                              </Button>
                             </ListItem>
                           </List>
                         </Box>
